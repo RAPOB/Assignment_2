@@ -1,50 +1,58 @@
 ﻿using System;
 
-namespace Assignment_2_Pract
+namespace Assignment_2
 {
-    public enum State
+    class FiniteStateTable
     {
-        S0,
-        S1,
-        S2
+        //Constructor template
+        // public FiniteStateTable() {}
+        // public FiniteStateTable (int idInit) {
+        //     this.idSensor = idInit;
+        //}
+
+        //Constructors
+        public FiniteStateTable() //Default Finite State Table
+        {
+            Console.WriteLine("Default Constructor!");
+            
+        }
+        
+        //Variables
+        public int[,] FST; //2D Array
+
+        struct cell_FST
+        {
+            //Variables for the struct
+            public int nextState;
+            public string action;
+
+            //Methods for the struct
+            public void setnextState(int d_state)
+            {
+                this.nextState = d_state;
+            }
+            public void setAction(string d_action)
+            {
+                this.action = d_action;
+            }
+            public int getnextState()
+            {
+                return nextState;
+            }
+            public string getAction()
+            {
+                return action;
+            }
+        }
+        
+        //Methods
+
+        static void Main(string[] args) // entry point 
+        {
+            // shit goes here
+            cell_FST fish = new cell_FST();
+        }
+
     }
-
-    public void W() { Console.Write("W"); }
-    public void X() { Console.Write("X"); }
-    public void Y() { Console.Write("Y"); }
-    public void Z() { Console.Write("Z"); }
-}
-class FiniteStateTable
-{
-    //Constrcuctors
-    private Action[,] fsm;
-
-
-    //Variables
-    public int[,] FST;
-    struct cell_FST
-    {
-        public int nextState;
-        public string action;
-    }
-
-    //Methods
-    public int SetNextState() { GetNextState() = value; }
-    public string SetAction() { GetAction() = value; }
-    public int GetNextState() { return nextState; }
-    public string GetAction() { return action; }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
+    
 }
