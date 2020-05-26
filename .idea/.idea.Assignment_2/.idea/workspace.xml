@@ -80,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590307764232</updated>
-      <workItem from="1590307785040" duration="8486000" />
+      <workItem from="1590307785040" duration="17208000" />
     </task>
     <servers />
   </component>
@@ -108,10 +108,26 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="824" y="387" key="#Notifications/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590308665485" />
-    <state x="92" y="92" width="1736" height="866" key="VCS.FileHistoryDialog" timestamp="1590310943062">
+    <state width="1878" height="285" key="GridCell.Tab.0.bottom" timestamp="1590484606193">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="92" y="92" width="1736" height="866" key="VCS.FileHistoryDialog/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590310943062" />
+    <state width="1878" height="285" key="GridCell.Tab.0.bottom/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590484606193" />
+    <state width="1878" height="285" key="GridCell.Tab.0.center" timestamp="1590484606192">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1878" height="285" key="GridCell.Tab.0.center/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590484606192" />
+    <state width="1878" height="285" key="GridCell.Tab.0.left" timestamp="1590484606192">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1878" height="285" key="GridCell.Tab.0.left/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590484606192" />
+    <state width="1878" height="285" key="GridCell.Tab.0.right" timestamp="1590484606193">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1878" height="285" key="GridCell.Tab.0.right/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590484606193" />
+    <state x="92" y="92" width="1736" height="866" key="VCS.FileHistoryDialog" timestamp="1590483900501">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="92" y="92" width="1736" height="866" key="VCS.FileHistoryDialog/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590483900501" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1590316019950">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
