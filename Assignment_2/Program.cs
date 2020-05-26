@@ -20,12 +20,19 @@ namespace Assignment_2
         private FiniteStateTable(int[,] fst) //User defined size Finite State Table
         {
             FST = fst;
-            Console.WriteLine("User has defined a Finite State Table of total size {0}!", fst.Length);
+            Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!", fst.GetLength(0),
+                fst.GetLength(1));
         }
         
         //Variables
         public int[,] FST; //2D Array
+        
+        //S0                        S1                S2
+        //S1 -> ActionX/Y           S2 -> ActionX/Z   S0 -> ActionW
+        // S0 -> do_nothing         S0 -> ActionW     S1 -> ActionX/Y
+        // Default? -> do_nothing   S1 -> do_nothing  S2 -> do_nothing    
 
+        
         // maybe implement an indexer for FST?
         struct cell_FST
         {
@@ -73,6 +80,24 @@ namespace Assignment_2
             FiniteStateTable fish = new FiniteStateTable(amn);
             fish.setAction("peepee");
             Console.WriteLine(fish.getAction());
+            
+            //code to read strings input from user we will recieve a,b,c and use compare 
+            //we will also need invalid key handling as well as 'q' for quit handling 
+            Console.WriteLine("Please enter some bullshit");
+            string age = Console.ReadLine();
+            Console.WriteLine("Your age is: " + age);
+            age.CompareTo("a");
+            
+            Console.WriteLine("Current State is xyz");
+            string foo = Console.ReadLine();
+            Console.WriteLine("Print action associated with transistion");
+            Console.WriteLine("Now in state S1");
+            
+            //Logging the actions and output to files should happen somewhere here
+
+
+            
+            
         }
 
     }
