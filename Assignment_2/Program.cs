@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 namespace Assignment_2
 {
@@ -45,16 +46,6 @@ namespace Assignment_2
             private string action;
 
             //Getter and setter methods
-            // public static int nextState 
-            // {
-            //     get { return _nextState; }
-            //     set { _nextState = value;  }
-            // }
-            // public static string action
-            // {
-            //     get { return _action; }
-            //     set { _action = value;  }
-            // }
             public void setnextState(int d_state)
             {
                 this.nextState = d_state;
@@ -80,17 +71,14 @@ namespace Assignment_2
         {
             
             // shit goes here
-            Action[,] Penis = new Action[5, 5];
-            var fish = new FiniteStateTable(Penis);
-            cell_FST S0 = new cell_FST();
-            S0.setAction("peepee");
-            S0.setnextState(1);
-            fish.FST[0, 0] = S0;
+            cell_FST[,] Yeyer = new cell_FST[5, 5];
+            var fish = new FiniteStateTable(Yeyer);
+
+            fish.FST[0,0].setAction("Yeehee the boyz");
             
             
             
-  
-            fish.FST = 
+                
             //Console.WriteLine(fish.getAction());
 
             //code to read strings input from user we will receive a,b,c and use compare
