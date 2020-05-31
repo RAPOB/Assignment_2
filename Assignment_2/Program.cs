@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Assignment_2
 {
@@ -26,13 +27,16 @@ namespace Assignment_2
         
         //Variables
         public int[,] FST; //2D Array
-        
+
         //S0                        S1                S2
         //S1 -> ActionX/Y           S2 -> ActionX/Z   S0 -> ActionW
         // S0 -> do_nothing         S0 -> ActionW     S1 -> ActionX/Y
         // Default? -> do_nothing   S1 -> do_nothing  S2 -> do_nothing    
 
-        
+        private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
+        //private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //KUAN
+
+
         // maybe implement an indexer for FST?
         struct cell_FST
         {
@@ -76,25 +80,44 @@ namespace Assignment_2
         static void Main(string[] args) // entry point 
         {
             // shit goes here
-            var amn = new int[5 , 5];
-            FiniteStateTable fish = new FiniteStateTable(amn);
-            fish.setAction("peepee");
-            Console.WriteLine(fish.getAction());
-            
-            //code to read strings input from user we will recieve a,b,c and use compare 
-            //we will also need invalid key handling as well as 'q' for quit handling 
-            Console.WriteLine("Please enter some bullshit");
-            string age = Console.ReadLine();
-            Console.WriteLine("Your age is: " + age);
-            age.CompareTo("a");
-            
-            Console.WriteLine("Current State is xyz");
-            string foo = Console.ReadLine();
-            Console.WriteLine("Print action associated with transistion");
-            Console.WriteLine("Now in state S1");
-            
+            //var amn = new int[5, 5];
+            //FiniteStateTable fish = new FiniteStateTable(amn);
+            //fish.setAction("peepee");
+            //Console.WriteLine(fish.getAction());
+
+            //code to read strings input from user we will recieve a,b,c and use compare
+            //we will also need invalid key handling as well as 'q' for quit handling
+            //Console.WriteLine("Please enter some bullshit");
+            //string age = Console.ReadLine();
+            //Console.WriteLine("Your age is: " + age);
+            //age.CompareTo("a");
+
+            //Console.WriteLine("Current State is xyz");
+            //string foo = Console.ReadLine();
+            //Console.WriteLine("Print action associated with transistion");
+            //Console.WriteLine("Now in state S1");
+
+            string run = "";
+            string log = String.Format("{0,0} {1,20} {2,15} {3,15}\n", "TimeStamp", "Trigger", "Event", "Action");
+
+            while (run != "q")
+            {
+                Console.WriteLine("trigger");
+                run = Console.ReadLine();
+                Console.WriteLine(run);
+
+                log += String.Format("{0,0} {1,10} {2,15} {3,10} {4,-15}\n", DateTime.Now.ToString("yyyy MM dd HH mm ss"), run, "Event", "", "Action");
+
+            }
+
             //Logging the actions and output to files should happen somewhere here
 
+            Console.WriteLine("File Name:");
+            string Name = Console.ReadLine();
+
+            string file_name = FNAME + Name + ".txt";
+
+            System.IO.File.AppendAllText(file_name, (log) + "\n");
 
             
             
