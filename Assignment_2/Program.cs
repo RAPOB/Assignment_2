@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 
 namespace Assignment_2
 {
@@ -74,9 +72,10 @@ namespace Assignment_2
             cell_FST[,] Yeyer = new cell_FST[5, 5];
             var fish = new FiniteStateTable(Yeyer);
 
-            fish.FST[0,0].setAction("Yeehee the boyz");
+            fish.FST[0,0].setAction("Yeehee the boyz"); // STATE 0 TRansition to state 1
+            fish.FST[0,0].setnextState(1);
             
-            
+            Console.Write(fish.FST[0,0].getAction());
             
                 
             //Console.WriteLine(fish.getAction());
