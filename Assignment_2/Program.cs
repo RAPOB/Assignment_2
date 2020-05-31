@@ -66,33 +66,31 @@ namespace Assignment_2
             var fish = new FiniteStateTable(FSM);
 
             //S0                        S1                S2
-            //a S1 -> ActionX/Y           S2 -> ActionX/Z   S0 -> ActionW
-            //S0 -> do_nothing         a S0 -> ActionW     S1 -> ActionX/Y
-            // Default? -> do_nothing   S1 -> do_nothing  S2 -> do_nothing 
-            fish.FST[0,0].setAction("ActionX/Y"); // STATE 0 TRansition to state 1
+            //S1 -> ActionX/Y           S0 -> ActionW     S0 -> ActionW     //a
+            //S0 -> do_nothing          S2 -> ActionX/Z   S2 -> do_nothing  //b
+            //S0 -> do_nothing          S1 -> do_nothing  S1 -> ActionX/Y   //c 
+            fish.FST[0,0].setAction("ActionX/Y"); // STATE 0 Transition to state 1
             fish.FST[0,0].setnextState(1);
-            fish.FST[0,1].setAction("ActionX/Z"); // STATE 1 TRansition to state 2
-            fish.FST[0,1].setnextState(2);
-            fish.FST[0,2].setAction("ActionW"); // STATE 2 TRansition to state 0
+            fish.FST[0,1].setAction("ActionW"); // STATE 1 Transition to state 0
+            fish.FST[0,1].setnextState(0);
+            fish.FST[0,2].setAction("ActionW"); // STATE 2 Transition to state 0
             fish.FST[0,2].setnextState(0);
-            fish.FST[1,0].setAction("Do Nothing"); // STATE 0 TRansition to state 0
+            fish.FST[1,0].setAction("Do Nothing"); // STATE 0 Transition to state 0
             fish.FST[1,0].setnextState(0);
-            fish.FST[1,1].setAction("ActionW"); // STATE 1 TRansition to state 0
-            fish.FST[1,1].setnextState(0);
-            fish.FST[1,2].setAction("ActionX/Y"); // STATE 2 TRansition to state 1
-            fish.FST[1,2].setnextState(1);
-            fish.FST[2,0].setAction("Do Nothing"); // STATE 0 TRansition to state 0
+            fish.FST[1,1].setAction("ActionX/Z"); // STATE 1 Transition to state 2
+            fish.FST[1,1].setnextState(2);
+            fish.FST[1,2].setAction("Do Nothing"); // STATE 2 Transition to state 2
+            fish.FST[1,2].setnextState(2);
+            fish.FST[2,0].setAction("Do Nothing"); // STATE 0 Transition to state 0
             fish.FST[2,0].setnextState(0);
-            fish.FST[2,1].setAction("Do Nothing"); // STATE 1 TRansition to state 1
+            fish.FST[2,1].setAction("Do Nothing"); // STATE 1 Transition to state 1
             fish.FST[2,1].setnextState(1);
-            fish.FST[2,2].setAction("Do Nothing"); // STATE 2 TRansition to state 2
-            fish.FST[2,2].setnextState(2);
+            fish.FST[2,2].setAction("ActionX/Y"); // STATE 2 Transition to state 1
+            fish.FST[2,2].setnextState(1);
             
+            var current_state = 0;
             //current.state = state 1
             
-            Console.Write(fish.FST[0,0].getAction());
-            
-
             //code to read strings input from user we will receive a,b,c and use compare
             //we will also need invalid key handling as well as 'q' for quit handling
             //Console.WriteLine("Please enter some bullshit");
