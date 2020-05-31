@@ -27,8 +27,8 @@ namespace Assignment_2
         //Variables
         private cell_FST[,] FST; //2D Array
 
-        // private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
-        private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
+        private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
+        //private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
         
         
         // maybe implement an indexer for FST?
@@ -58,17 +58,17 @@ namespace Assignment_2
         }
         
         //Methods
-        
+      
 
         static void Main(string[] args) // entry point 
         {
             cell_FST[,] FSM = new cell_FST[3, 3];
             var fish = new FiniteStateTable(FSM);
 
-            //S0                        S1                S2
-            //S1 -> ActionX/Y           S0 -> ActionW     S0 -> ActionW     //a
-            //S0 -> do_nothing          S2 -> ActionX/Z   S2 -> do_nothing  //b
-            //S0 -> do_nothing          S1 -> do_nothing  S1 -> ActionX/Y   //c 
+            //S0                        S1                   S2
+            //S1 -> ActionX/Y           S0 -> ActionW        S0 -> ActionW     //a
+            //S0 -> do_nothing          S2 -> ActionX/Z      S2 -> do_nothing  //b
+            //S0 -> do_nothing          S1 -> do_nothing     S1 -> ActionX/Y   //c 
             fish.FST[0,0].setAction("ActionX/Y"); // STATE 0 Transition to state 1
             fish.FST[0,0].setnextState(1);
             fish.FST[0,1].setAction("ActionW"); // STATE 1 Transition to state 0
@@ -89,29 +89,76 @@ namespace Assignment_2
             fish.FST[2,2].setnextState(1);
             
             var current_state = 0;
-            //current.state = state 1
+            string action = "";
+            int x = 0;
+            int y = 0;
+            int last_x = -1;
             
+            //current.state = state 1
+
             //code to read strings input from user we will receive a,b,c and use compare
-            //we will also need invalid key handling as well as 'q' for quit handling
-            //Console.WriteLine("Please enter some bullshit");
-            //string age = Console.ReadLine();
-            //Console.WriteLine("Your age is: " + age);
-            //age.CompareTo("a");
 
-            //Console.WriteLine("Current State is xyz");
-            //string foo = Console.ReadLine();
-            //Console.WriteLine("Print action associated with transistion");
-            //Console.WriteLine("Now in state S1");
-
-            /*string run = "";
+                 
+            string key_in = "";
             string log = String.Format("{0,0} {1,20} {2,15} {3,15}\n", "TimeStamp", "Trigger", "Event", "Action");
 
-            while (run != "q")
+            while (key_in != "q")
             {
                 Console.WriteLine("trigger");
-                run = Console.ReadLine();
+                key_in = Console.ReadLine();
 
-                log += String.Format("{0,0} {1,10} {2,15} {3,10} {4,-15}\n", DateTime.Now.ToString("yyyy MM dd HH mm ss"), run, "Event", "", "Action");
+                switch (current_state)
+                {
+                    case 0:
+                        if (key_in == "a")
+                        {                            
+                            x = 0;
+                            y = 0;
+                        }                        
+                        break;
+
+                    case 1:
+                        if (key_in == "a")
+                        {                            
+                            x = 0;
+                            y = 1;
+                        }
+                        else if (key_in == "b")
+                        {                            
+                            x = 1;
+                            y = 1;                            
+                        }
+                        
+                        break;
+
+                    case 2:
+                        if (key_in == "a")
+                        {                            
+                            x = 0;
+                            y = 2;                            
+                        }
+                        else if (key_in == "c")
+                        {                            
+                            x = 2;
+                            y = 2;
+                        }                        
+                        break;
+                }
+                if (last_x == x) 
+                {
+                    action = "Do_Nothing";
+                }
+                else
+                {
+                    action = (fish.FST[x, y].getAction());
+                    current_state = fish.FST[x, y].getnextState();
+                }
+
+                last_x = x;                
+
+                Console.WriteLine(action);
+
+                log += String.Format("{0,0} {1,10} {2,15} {3,10} {4,-15}\n", DateTime.Now.ToString("yyyy MM dd HH mm ss"), key_in, "Event", "", action );
 
             }
 
@@ -122,9 +169,7 @@ namespace Assignment_2
 
             string file_name = FNAME + Name + ".txt";
 
-            System.IO.File.AppendAllText(file_name, (log) + "\n");*/
-
-            
+            System.IO.File.AppendAllText(file_name, (log) + "\n");         
             
         }
 
