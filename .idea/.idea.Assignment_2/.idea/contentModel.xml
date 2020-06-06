@@ -6,6 +6,7 @@
     <e p="C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\Assignment_2" t="IncludeFlat">
       <e p="Assignment_2" t="IncludeRecursive">
         <e p="Assignment_2.csproj" t="IncludeRecursive" />
+        <e p="Assignment_2.csproj.DotSettings" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

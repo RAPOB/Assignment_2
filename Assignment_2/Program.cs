@@ -1,90 +1,86 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using Assignment_2;
 
 namespace Assignment_2
 {
     class FiniteStateTable
     {
-        //Constructor template
-        // public FiniteStateTable() {}
-        // public FiniteStateTable (int idInit) {
-        //     this.idSensor = idInit;
-        //}
-
         //Constructors
-      
-        private FiniteStateTable(cell_FST[,] fst) //User defined size Finite State Table
+
+        public FiniteStateTable() //User defined size Finite State Table
         {
-            FST = fst;
-            Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!", fst.GetLength(0),
-                fst.GetLength(1));
+            FST = new cell_FST[3, 3];
+            Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!", FST.GetLength(0),
+                FST.GetLength(1));
         }
-        
+
         //Variables
-        private cell_FST[,] FST; //2D Array
+        protected cell_FST[,] FST; //2D Array
 
-        private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
-        //private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
-
-      //  protected Action ActionX(void)      
-
-        
-        
-        // maybe implement an indexer for FST?
-        struct cell_FST
+        protected struct cell_FST
         {
             //Variables for the struct
-            private int nextState;
-            private string action;
+            public int nextState;
+            public string action;
+        }
 
-            //Getter and setter methods
-            public void setnextState(int d_state)
-            {
-                this.nextState = d_state;
-            }
-            public void setAction(string d_action)
-            {
-                this.action = d_action;
-            }
-            public int getnextState()
-            {
-                return this.nextState;
-            }
-            public string getAction()
-            {
-                return this.action;
-            }
-        }   
-
-        //Methods //needs be its on classssss
-        static void Main(string[] args) // entry point 
+        //Methods
+        public void setnextState(int d_state, int x, int y)
         {
-            cell_FST[,] FSM = new cell_FST[3, 3];
-            var fish = new FiniteStateTable(FSM);
+           this.FST[x,y].nextState = d_state;
+        }
+
+        public void setAction(string d_action, int x, int y)
+        {
+            this.FST[x,y].action = d_action;
+        }
+
+        public int getnextState(int x, int y)
+        {
+            return this.FST[x,y].nextState;
+        }
+
+        public string getAction(int x, int y)
+        {
+            return this.FST[x,y].action;
+        }
+       
+        
+    }
+
+    class MainClass 
+    {
+        //private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
+        private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
+         //needs be its on classssss
+        public static void Main(string[] args) // entry point 
+        {
+            var fish = new FiniteStateTable();
 
             //S0                        S1                   S2
             //S1 -> ActionX/Y           S0 -> ActionW        S0 -> ActionW     //a
             //S0 -> do_nothing          S2 -> ActionX/Z      S2 -> do_nothing  //b
             //S0 -> do_nothing          S1 -> do_nothing     S1 -> ActionX/Y   //c 
-
-            fish.FST[0,0].setAction("ActionX/Y"); // STATE 0 Transition to state 1
-            fish.FST[0,0].setnextState(1);
-            fish.FST[0,1].setAction("ActionW"); // STATE 1 Transition to state 0
-            fish.FST[0,1].setnextState(0);
-            fish.FST[0,2].setAction("ActionW"); // STATE 2 Transition to state 0
-            fish.FST[0,2].setnextState(0);
-            fish.FST[1,0].setAction("Do Nothing"); // STATE 0 Transition to state 0
-            fish.FST[1,0].setnextState(0);
-            fish.FST[1,1].setAction("ActionX/Z"); // STATE 1 Transition to state 2
-            fish.FST[1,1].setnextState(2);
-            fish.FST[1,2].setAction("Do Nothing"); // STATE 2 Transition to state 2
-            fish.FST[1,2].setnextState(2);
-            fish.FST[2,0].setAction("Do Nothing"); // STATE 0 Transition to state 0
-            fish.FST[2,0].setnextState(0);
-            fish.FST[2,1].setAction("Do Nothing"); // STATE 1 Transition to state 1
-            fish.FST[2,1].setnextState(1);
-            fish.FST[2,2].setAction("ActionX/Y"); // STATE 2 Transition to state 1
-            fish.FST[2,2].setnextState(1);
+            
+            
+            fish.setAction("ActionX/Y", 0 , 0); // STATE 0 Transition to state 1
+            fish.setnextState(1, 0, 0);
+            fish.setAction("ActionW", 0 , 1); // STATE 1 Transition to state 0
+            fish.setnextState(0 , 0 , 1);
+            fish.setAction("ActionW", 0 , 2); // STATE 2 Transition to state 0
+            fish.setnextState(0 , 0, 2);
+            fish.setAction("Do Nothing" ,1, 0); // STATE 0 Transition to state 0
+            fish.setnextState(0, 1, 0);
+            fish.setAction("ActionX/Z", 1, 1); // STATE 1 Transition to state 2
+            fish.setnextState(2, 1, 1);
+            fish.setAction("Do Nothing", 1, 2); // STATE 2 Transition to state 2
+            fish.setnextState(2, 1, 2);
+            fish.setAction("Do Nothing", 2, 0); // STATE 0 Transition to state 0
+            fish.setnextState(0, 2, 0);
+            fish.setAction("Do Nothing", 2, 1); // STATE 1 Transition to state 1
+            fish.setnextState(1, 2, 1);
+            fish.setAction("ActionX/Y", 2, 2); // STATE 2 Transition to state 1
+            fish.setnextState(1, 2, 2);
             
             //Variables
             string actionPerform = "";                                
