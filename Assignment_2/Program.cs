@@ -12,13 +12,13 @@ namespace Assignment_2
     
 
     public delegate void action();
-    class FiniteStateTable
+    class FiniteStateMachine
     {
         //Constructors
 
-        public FiniteStateTable() //User defined size Finite State Table
+        public FiniteStateMachine() //User defined size Finite State Table
         {
-            FST = new cell_FST[3, 3];
+            FST = new cell_FST[3,3];
             Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!", FST.GetLength(0),
                 FST.GetLength(1));
         }
@@ -26,12 +26,15 @@ namespace Assignment_2
         //Variables
         protected cell_FST[,] FST; //2D Array
             
-        public void W() { Console.WriteLine("Action W");  }       
-        public void X() { Console.WriteLine("Action X"); }
-        public void Y() { Console.WriteLine("Action Y"); }
-        public void Z() { Console.WriteLine("Action Z"); }
-
+        public void W() { Console.WriteLine("FSM1: Action W");  }       
+        public void X() { Console.WriteLine("FSM1: Action X"); }
+        public void Y() { Console.WriteLine("FSM1: Action Y"); }
+        public void Z() { Console.WriteLine("FSM1: Action Z"); }
+        public void J() { Console.WriteLine("FSM2: Action J");  }       
+        public void K() { Console.WriteLine("FSM2: Action K"); }
+        public void L() { Console.WriteLine("FSM2: Action L"); }
         
+        public void State() { Console.WriteLine("FSM2: State Change Only"); }
 
         protected struct cell_FST
         {
@@ -83,20 +86,19 @@ namespace Assignment_2
     class MainClass 
     {   
 
-        private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
-        //private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
+        //private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
+        private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
 
          
         public static void Main(string[] args) // entry point 
         {
-            var fish = new FiniteStateTable();
-
+            var fish = new FiniteStateMachine();
+            var bear =  new FiniteStateMachine();
+            
             //S0                        S1                   S2
             //S1 -> ActionX/Y           S0 -> ActionW        S0 -> ActionW     //a
             //S0 -> do_nothing          S2 -> ActionX/Z      S2 -> do_nothing  //b
             //S0 -> do_nothing          S1 -> do_nothing     S1 -> ActionX/Y   //c 
-            
-            
             fish.setAction("X,Y", 0 , 0); // STATE 0 Transition to state 1
             fish.setnextState(1, 0, 0);
             fish.setAction("W", 0 , 1); // STATE 1 Transition to state 0
@@ -116,8 +118,22 @@ namespace Assignment_2
             fish.setAction("X,Y", 2, 2); // STATE 2 Transition to state 1
             fish.setnextState(1, 2, 2);
             
-            //action bob = fish.X;
-
+            //SA (0)                    SB (1) && S1                   
+            //SB -> do_nothing          SA -> Action J/K/L   //a
+            //SA -> do_nothing          SA -> Action J/K/L   //b
+            //SA -> do_nothing          SA -> Action J/K/L   //c 
+            bear.setAction("State", 0, 0);
+            bear.setnextState(1, 0, 0);
+            bear.setAction("J,K,L", 0, 1);
+            bear.setnextState(0, 0, 1);
+            bear.setAction("", 1, 0);
+            bear.setnextState(1, 1, 0);
+            bear.setAction("J,K,L", 1, 1);
+            bear.setnextState(0, 1, 1);
+            bear.setAction("", 2, 0);
+            bear.setnextState(1, 2, 0);
+            bear.setAction("J,K,L", 2, 2);
+            bear.setnextState(0, 2, 2);
            
 
 
@@ -125,10 +141,13 @@ namespace Assignment_2
             //Variables                                           
             string timestamp = "";
 
-            int x = -1; 
+            int x; 
             int current_state = 0;
+            int current_state_2 = 1;  
+            Console.WriteLine("Finite State Machine 1 current state: " + current_state);
+            Console.WriteLine("Finite State Machine 2 current state: " + current_state_2 + "\n");
 
-            ConsoleKey key_in = ConsoleKey.Delete; 
+            ConsoleKey key_in = ConsoleKey.Delete; //what this line do
             
             string log = "TimeStamp \t\t Event \t\t Action \n"; //initialise log file
 
@@ -148,18 +167,31 @@ namespace Assignment_2
                     case ConsoleKey.C:
                         x = 2;                     
                         break;
+                    default:
+                        x = -1;
+                        break;
                 }
                 
-                if ((key_in == ConsoleKey.A || key_in == ConsoleKey.B || key_in == ConsoleKey.C) && (fish.getAction(x, current_state) != ""))
+                if (x != -1)
                 {
+
+                    if ((fish.getAction(x, current_state) != ""))
+                    {
+                        fish.running(fish.getAction(x, current_state));
+                    }
                     
-                    fish.running(fish.getAction(x, current_state));                
-
-
+                    if ((current_state == 1 || current_state_2 == 0) && bear.getAction(x, current_state_2) != "")
+                    {
+                        bear.running(bear.getAction(x, current_state_2));
+                        current_state_2 = bear.getnextState(x, current_state_2);
+                    }
+                    
                     current_state = fish.getnextState(x, current_state);
 
-                    Console.WriteLine(current_state);
-                    //Console.WriteLine(actionPerform);
+                    Console.WriteLine("Finite State Machine 1 current state: " + current_state);
+                    Console.WriteLine("Finite State Machine 2 current state: " + current_state_2 + "\n");
+                    
+                    
 
                     timestamp = DateTime.Now.ToString("yyyy MM dd HH mm ss");
                     log += timestamp + "\t" + " " + key_in + "\t\t" + " " + fish.actionPerform + "\n";
