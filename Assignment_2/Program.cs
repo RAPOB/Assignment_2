@@ -1,6 +1,6 @@
 ﻿using System;
 using Assignment_2;
-
+using System.Reflection;
 namespace Assignment_2
 {
     class FiniteStateTable
@@ -16,6 +16,14 @@ namespace Assignment_2
 
         //Variables
         protected cell_FST[,] FST; //2D Array
+            
+        public string W() { Console.WriteLine("Action W"); return "Action W"; }
+        //public string X() { Console.WriteLine("Action X"); return "Action X"; }
+        public void X() { Console.WriteLine("Action X");  }
+        public string Y() { Console.WriteLine("Action Y"); return "Action Y"; }
+        public string Z() { Console.WriteLine("Action Z"); return "Action Z"; }
+
+        public delegate void action();
 
         protected struct cell_FST
         {
@@ -81,6 +89,14 @@ namespace Assignment_2
             fish.setnextState(1, 2, 1);
             fish.setAction("ActionX/Y", 2, 2); // STATE 2 Transition to state 1
             fish.setnextState(1, 2, 2);
+            
+            action bob = fish.X;
+
+            Type thisType = this.GetType();
+
+
+            MethodInfo run = thisType.GetMethod("fish." + "" + "()");
+            run.Invoke(this, null);
             
             //Variables
             string actionPerform = "";                                
