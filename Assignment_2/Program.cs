@@ -6,6 +6,10 @@ using System.Runtime.InteropServices.ComTypes;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Assignment_2
 {
@@ -26,13 +30,13 @@ namespace Assignment_2
         //Variables
         protected cell_FST[,] FST; //2D Array
             
-        public void W() { Console.WriteLine("FSM1: Action W");  }       
+        public void W() { Console.WriteLine("FSM1: Action W"); }       
         public void X() { Console.WriteLine("FSM1: Action X"); }
         public void Y() { Console.WriteLine("FSM1: Action Y"); }
         public void Z() { Console.WriteLine("FSM1: Action Z"); }
-        public void J() { Console.WriteLine("FSM2: Action J");  }       
-        public void K() { Console.WriteLine("FSM2: Action K"); }
-        public void L() { Console.WriteLine("FSM2: Action L"); }
+        public void J() { Console.WriteLine("FSM2: Action J, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId);  }       
+        public void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        public void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
         
         public void State() { Console.WriteLine("FSM2: State Change Only"); }
 
@@ -65,19 +69,42 @@ namespace Assignment_2
         }
 
         public string actionPerform = "";
+
         public void running(string stuff)
         {
-            //magic is pulling apart
-            string s = stuff;
-            string[] values = s.Split(',');
+            if (stuff != "J,K,L")
+            {
+                //magic is pulling apart
+                string s = stuff;
+                string[] values = s.Split(',');
 
-            
-            for (int i = 0; i < values.GetLength(0); i++)
-            {              
-                MethodInfo run = this.GetType().GetMethod(values[i]); //@stack overflow
-                run.Invoke(this, null);
 
-                actionPerform += values[i] + " ";
+                for (int i = 0; i < values.GetLength(0); i++)
+                {
+                    MethodInfo run = this.GetType().GetMethod(values[i]); //@stack overflow
+                    run.Invoke(this, null);
+
+                    actionPerform += values[i] + " ";
+                }
+            }
+            else
+            {
+                Parallel.Invoke(() =>
+                                {
+                                    J();
+                                },
+
+                                () =>
+                                {
+                                    K();
+                                },
+
+                                () =>
+                                {
+                                    L();
+                                }
+                            ); //close parallel.invoke
+
             }
         }             
         
@@ -132,8 +159,8 @@ namespace Assignment_2
             bear.setnextState(0, 1, 1);
             bear.setAction("", 2, 0);
             bear.setnextState(1, 2, 0);
-            bear.setAction("J,K,L", 2, 2);
-            bear.setnextState(0, 2, 2);
+            bear.setAction("J,K,L", 2, 1);
+            bear.setnextState(0, 2, 1);
            
 
 
