@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assignment_2
 {
-    class FiniteStateMachine // general class for both Finite State Machines (FSM)
+    class FiniteStateTable // general class for both Finite State Machines (FSM)
     {
         //Constructors
-        public FiniteStateMachine() // default constructor initialising the Finite State table 
+        public FiniteStateTable() // default constructor initialising the Finite State table 
         {
             FST = new cell_FST[3, 3]; // both finite state tables can be housed within a 3 x 3 2D array
             Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!",
@@ -64,21 +64,8 @@ namespace Assignment_2
             }
             else
             {
-                Parallel.Invoke(() => // multi-threading for the J K L methods
-                    {
-                        J();
-                    },
-
-                    () =>
-                    {
-                        K();
-                    },
-
-                    () =>
-                    {
-                        L();
-                    }
-                ); //close parallel.invoke
+                // multi-threading for the J K L methods
+                Parallel.Invoke(() => { J(); }, () => { K(); }, () => { L(); });                   
 
                 actionPerform2 = ", " + stuff; // appends the actions performed to be printed to the log       
             }
@@ -87,8 +74,8 @@ namespace Assignment_2
         {
             public static void Main(string[] args) // entry point to program
             {
-                var fish = new FiniteStateMachine(); // instantiate two classes and assign them to respective objects
-                var bear = new FiniteStateMachine();
+                var fish = new FiniteStateTable(); // instantiate two classes and assign them to respective objects
+                var bear = new FiniteStateTable();
 
                 //Finite State Table for the first Finite State machine 
                 //S0                        S1                   S2
@@ -185,7 +172,7 @@ namespace Assignment_2
                         Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
                         Console.WriteLine("Finite State Machine 2 current state: " + currentState2 + "\n");
 
-                        timestamp = DateTime.Now.ToString("yyyy MM dd HH mm ss"); // updates the timestamp with user interactions                                                                                     
+                        timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
                         log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + fish.actionPerform + bear.actionPerform2 + "\n"; // appends the new concatenated information to the log 
                             
                         fish.actionPerform = ""; // Reset variables
