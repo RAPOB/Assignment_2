@@ -202,12 +202,36 @@ namespace Assignment_2
                     }
                 }
                 //Creating File
-                Console.WriteLine("File Name:"); // prompts the user for a file name
+                //Console.WriteLine("File Name:"); // prompts the user for a file name
+                //var name = Console.ReadLine(); // stores the user input
+
+                //var fileName = FNAME + name + ".txt"; // creates the actual file with location
+
+                //System.IO.File.AppendAllText(fileName, (log) + "\n"); // outputs the correct file   
+
+
+                // Creating File
+                    Console.WriteLine("Please Enter Directory Path: ");
+                var directory = Console.ReadLine(); // stores the user input
+                while (Directory.Exists(directory) != true)
+                {
+                    Console.WriteLine("Directory Path Incorrect \n Please Enter New Directory Path");
+                    directory = Console.ReadLine();
+                }
+
+                Console.WriteLine("Please Enter File Name: ");
                 var name = Console.ReadLine(); // stores the user input
+                while (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                {
+                    Console.WriteLine("File Name Invalid \n Please Enter New File Name");
+                    name = Console.ReadLine();
+                }
 
-                var fileName = FNAME + name + ".txt"; // creates the actual file with location
 
-                System.IO.File.AppendAllText(fileName, (log) + "\n"); // outputs the correct file                 
+                var FNAME = directory + name + ".txt";
+
+                // var fileName = FNAME + name + ".txt"; // creates the actual file with location
+                System.IO.File.AppendAllText(FNAME, (log) + "\n"); // outputs the correct file
             }
         }
     }
