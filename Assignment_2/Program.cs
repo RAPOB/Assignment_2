@@ -199,27 +199,26 @@ namespace Assignment_2
                         bear.actionPerform2 = "";                        
                     }
                 }
-              
-                // Creating File
-                Console.WriteLine("Please Enter Directory Path: ");
-                var directory = Console.ReadLine(); // stores the user input
-                while (Directory.Exists(directory) != true) // while the directory path entered is invalid keep prompting the user  
-                {
-                    Console.WriteLine("Directory Path Incorrect \nPlease Enter New Directory Path:");
-                    directory = Console.ReadLine();
-                }
 
-                Console.WriteLine("Please Enter File Name: ");
-                var name = Console.ReadLine(); // stores the user input
-                while (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) // while the file name entered is invalid keep prompting the user  
-                {
-                    Console.WriteLine("File Name Invalid \nPlease Enter New File Name:");
-                    name = Console.ReadLine();
-                }
+                // Creating File - V3
+                string filename = "";
+                string currentDirectory = "";
+                string strPath = "";
+                string[] error;
 
+                do {
+                    Console.WriteLine("Please Enter Fully-Qualified Filename: ");
 
-                var FNAME = directory + name + ".txt";
-                System.IO.File.AppendAllText(FNAME, (log) + "\n"); // outputs the correct file
+                    strPath = Console.ReadLine(); // stores the user input
+                    
+                    filename = Path.GetFileName(strPath); //pulls out name to check
+                    currentDirectory = Path.GetDirectoryName(strPath); //pulls out directory to check
+                    
+                    error = filename.Split('.');  //checks to see if the file is a text file                
+ 
+                } while ((Directory.Exists(currentDirectory) != true) || (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) || (error[(error.GetLength(0) - 1)] != "txt"));               
+                
+                System.IO.File.AppendAllText(strPath, (log) + "\n"); // outputs the correct file
             }
         }
     }
