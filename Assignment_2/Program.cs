@@ -72,13 +72,13 @@ namespace Assignment_2
 
         public void running(string stuff)
         {
-            if (stuff != "J,K,L")
-            {
+            
                 //magic is pulling apart
                 string s = stuff;
                 string[] values = s.Split(',');
 
-
+            if (stuff != "J,K,L")
+            {
                 for (int i = 0; i < values.GetLength(0); i++)
                 {
                     MethodInfo run = this.GetType().GetMethod(values[i]); //@stack overflow
@@ -89,6 +89,7 @@ namespace Assignment_2
             }
             else
             {
+                
                 Parallel.Invoke(() =>
                                 {
                                     J();
@@ -104,6 +105,7 @@ namespace Assignment_2
                                     L();
                                 }
                             ); //close parallel.invoke
+                actionPerform = "Action J \n Action K \n Action L";
 
             }
         }             
@@ -113,8 +115,8 @@ namespace Assignment_2
     class MainClass 
     {   
 
-        //private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
-        private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
+        private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben
+        //private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
 
          
         public static void Main(string[] args) // entry point 
@@ -171,6 +173,7 @@ namespace Assignment_2
             int x; 
             int current_state = 0;
             int current_state_2 = 1;  
+
             Console.WriteLine("Finite State Machine 1 current state: " + current_state);
             Console.WriteLine("Finite State Machine 2 current state: " + current_state_2 + "\n");
 
@@ -215,13 +218,13 @@ namespace Assignment_2
                     
                     current_state = fish.getnextState(x, current_state);
 
-                    Console.WriteLine("Finite State Machine 1 current state: " + current_state);
-                    Console.WriteLine("Finite State Machine 2 current state: " + current_state_2 + "\n");
                     
+                    Console.WriteLine("Finite State Machine 1 current state: " + current_state);
+                    Console.WriteLine("Finite State Machine 2 current state: " + current_state_2 + "\n");                   
                     
 
                     timestamp = DateTime.Now.ToString("yyyy MM dd HH mm ss");
-                    log += timestamp + "\t" + " " + key_in + "\t\t" + " " + fish.actionPerform + "\n";
+                    log += timestamp + "\t" + " " + key_in + "\t\t" + " " + fish.actionPerform +  + "\n";
                     fish.actionPerform = "";
                 }                                  
             }
