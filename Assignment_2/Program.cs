@@ -92,8 +92,6 @@ namespace Assignment_2
         }
         class MainClass
         {
-            private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben records the location of the .txt file output
-            //private const string FNAME = @"C:\Users\Kuanc\Desktop\Fourth Year\MECHENG313\Assignment 2\"; //KUAN
             public static void Main(string[] args) // entry point to program
             {
                 var fish = new FiniteStateMachine(); // instantiate two classes and assign them to respective objects
@@ -201,21 +199,13 @@ namespace Assignment_2
                         bear.actionPerform2 = "";                        
                     }
                 }
-                //Creating File
-                //Console.WriteLine("File Name:"); // prompts the user for a file name
-                //var name = Console.ReadLine(); // stores the user input
-
-                //var fileName = FNAME + name + ".txt"; // creates the actual file with location
-
-                //System.IO.File.AppendAllText(fileName, (log) + "\n"); // outputs the correct file   
-
-
+              
                 // Creating File
-                    Console.WriteLine("Please Enter Directory Path: ");
+                Console.WriteLine("Please Enter Directory Path: ");
                 var directory = Console.ReadLine(); // stores the user input
                 while (Directory.Exists(directory) != true)
                 {
-                    Console.WriteLine("Directory Path Incorrect \n Please Enter New Directory Path");
+                    Console.WriteLine("Directory Path Incorrect \nPlease Enter New Directory Path:");
                     directory = Console.ReadLine();
                 }
 
@@ -223,14 +213,12 @@ namespace Assignment_2
                 var name = Console.ReadLine(); // stores the user input
                 while (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 {
-                    Console.WriteLine("File Name Invalid \n Please Enter New File Name");
+                    Console.WriteLine("File Name Invalid \nPlease Enter New File Name:");
                     name = Console.ReadLine();
                 }
 
 
                 var FNAME = directory + name + ".txt";
-
-                // var fileName = FNAME + name + ".txt"; // creates the actual file with location
                 System.IO.File.AppendAllText(FNAME, (log) + "\n"); // outputs the correct file
             }
         }
