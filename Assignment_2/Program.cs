@@ -203,7 +203,7 @@ namespace Assignment_2
                 // Creating File
                 Console.WriteLine("Please Enter Directory Path: ");
                 var directory = Console.ReadLine(); // stores the user input
-                while (Directory.Exists(directory) != true)
+                while (Directory.Exists(directory) != true) // while the directory path entered is invalid keep prompting the user  
                 {
                     Console.WriteLine("Directory Path Incorrect \nPlease Enter New Directory Path:");
                     directory = Console.ReadLine();
@@ -211,7 +211,7 @@ namespace Assignment_2
 
                 Console.WriteLine("Please Enter File Name: ");
                 var name = Console.ReadLine(); // stores the user input
-                while (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                while (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) // while the file name entered is invalid keep prompting the user  
                 {
                     Console.WriteLine("File Name Invalid \nPlease Enter New File Name:");
                     name = Console.ReadLine();
