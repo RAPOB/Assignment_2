@@ -209,41 +209,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="92" y="92" width="1736" height="866" key="VCS.FileHistoryDialog/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590483900501" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1590924262405">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1591500377204">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1590924262405" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assignment_2/Program.cs</url>
-          <line>177</line>
-          <properties documentPath="$PROJECT_DIR$/Assignment_2/Program.cs" initialLine="177">
-            <startOffsets>
-              <option value="6440" />
-            </startOffsets>
-            <endOffsets>
-              <option value="6485" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assignment_2/Program.cs</url>
-          <line>184</line>
-          <properties documentPath="$PROJECT_DIR$/Assignment_2/Program.cs" initialLine="184">
-            <startOffsets>
-              <option value="6783" />
-            </startOffsets>
-            <endOffsets>
-              <option value="6832" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/-3200.-706.1280.708/0.0.1920.1050@0.0.1920.1050" timestamp="1591500377204" />
   </component>
 </project>
