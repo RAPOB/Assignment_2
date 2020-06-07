@@ -25,7 +25,8 @@ namespace Assignment_2
 
         //Variables
         protected cell_FST[,] FST; // 2D array of type cell Finite State Table (FST)
-        public string actionPerform = ""; // records the actions performed to populate the log
+        private string actionPerform = ""; // records the actions performed to populate the log
+        private string actionPerform2 = "";
 
         protected struct cell_FST // a single cell of the 2D array 'FST' containing a struct with two variables 
         {
@@ -94,16 +95,16 @@ namespace Assignment_2
         {
             return this.FST[x, y].action;
         }
-
+        
         public void running(string stuff) // method to run other methods based on a string input pulled from the FST
         {
-            var s = stuff; // assign s to the incoming string 
-            var values = s.Split(','); // separate the string based on commas and store in an array of
-                                       // strings
+            string s = stuff; // assign s to the incoming string
+            string[] values = s.Split(','); // separate the string based on commas and store in an array of
+                                            // strings
 
             if (stuff != "J,K,L")
             {
-                for (var i = 0; i < values.GetLength(0); i++) // loops through based on how many
+                for (int i = 0; i < values.GetLength(0); i++) // loops through based on how many
                                                               // elements in the string array
                 {
                     MethodInfo run = this.GetType().GetMethod(values[i]); // @stack overflow runs the associated methods
@@ -115,25 +116,28 @@ namespace Assignment_2
             }
             else
             {
-
                 Parallel.Invoke(() => // multi-threading for the J K L methods
                     {
                         J();
                     },
 
-                    () => { K(); },
+                    () =>
+                    {
+                        K();
+                    },
 
-                    () => { L(); }
-                );
-                actionPerform = "Action J \n Action K \n Action L"; // appends the actions performed to be printed to
+                    () =>
+                    {
+                        L();
+                    }
+                ); //close parallel.invoke
+
+                actionPerform2 = ", " + stuff; // appends the actions performed to be printed to
                 // the log
 
             }
         }
-
-    }
-
-    class MainClass
+        class MainClass
     {
 
         private const string FNAME = @"C:\Users\fifac\OneDrive\Desktop\Mechatronics Third Year\313\"; //Reuben records the location of the .txt file output
@@ -255,9 +259,10 @@ namespace Assignment_2
 
                         timestamp = DateTime.Now.ToString("yyyy MM dd HH mm ss"); // updates the timestamp with
                                                                                   // user interactions
-                        log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + fish.actionPerform + "\n"; 
-                        // appends the new concatenated information to the log 
+                        log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + fish.actionPerform + fish.actionPerform2 
+                               + "\n"; // appends the new concatenated information to the log 
                         fish.actionPerform = ""; // inserts whitespace for aesthetics
+                        fish.actionPerform2 = "";
                     }
                 }
 
