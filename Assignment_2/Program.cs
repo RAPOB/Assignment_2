@@ -87,7 +87,7 @@ namespace Assignment_2
                     i++) // loops through based on how many elements in the string array                                                               
                 {
                     MethodInfo run = typeof(FiniteStateMachine).GetMethod(values[i]); //runs the associated methods using the inbuilt MethodInfo class                                                                          
-                    run.Invoke(null ,null);
+                    run.Invoke(run ,null);
 
                     actionPerform += values[i] + " "; // appends the actions performed to be printed to the log
                 }
@@ -102,7 +102,7 @@ namespace Assignment_2
 
                 ThreadJ.Start(); ThreadK.Start(); ThreadL.Start();
 
-                actionPerform2 = ", " + stuff; // appends the actions performed to be printed to the log       
+                actionPerform2 = stuff; // appends the actions performed to be printed to the log       
             }
         }
         
@@ -202,7 +202,7 @@ namespace Assignment_2
                         currentState2 = bear.getnextState(x, currentState2); // updates the current state with the new state                                                                              
                     }
                     currentState = fish.getnextState(x, currentState); // updates the current state with the new state                                                                         
-
+                    
                     Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
                     Console.WriteLine("Finite State Machine 2 current state: " + currentState2 + "\n");
 
