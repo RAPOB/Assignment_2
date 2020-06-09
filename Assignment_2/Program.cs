@@ -2,14 +2,13 @@
 using System.Reflection;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Assignment_2
 {
     class FiniteStateTable // general class for both Finite State Machines (FSM)
     {
         //Constructors
-        public FiniteStateTable(int x, int y) // default constructor initialising the Finite State table 
+        public FiniteStateTable(int x, int y) // user initialised constructor initialising the Finite State table 
         {
             FST = new cell_FST[x, y]; // both finite state tables can be housed within a 3 x 3 2D array
             Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!",
@@ -35,22 +34,22 @@ namespace Assignment_2
         // methods to change and read the variables within a cell within the 2D array
         public void setnextState(int d_state, int x, int y)
         {
-            this.FST[x, y].nextState = d_state;
+            FST[x, y].nextState = d_state;
         }
 
         public void setAction(string d_action, int x, int y)
         {
-            this.FST[x, y].action = d_action;
+            FST[x, y].action = d_action;
         }
 
         public int getnextState(int x, int y)
         {
-            return this.FST[x, y].nextState;
+            return FST[x, y].nextState;
         }
 
         public string getAction(int x, int y)
         {
-            return this.FST[x, y].action;
+            return FST[x, y].action;
         }
 
         
@@ -59,29 +58,27 @@ namespace Assignment_2
     class FiniteStateMachine
     {
         //Variables 
-        private string actionPerform = ""; // records the actions performed to populate the log
-        private string actionPerform2 = "";
+        private static string actionPerform = ""; // records the actions performed to populate the log
+        private static string actionPerform2 = "";
         
         //Methods
         //methods for actions associated with state changes    
         //S1
-        public void W() { Console.WriteLine("FSM1: Action W"); }
-        public void X() { Console.WriteLine("FSM1: Action X"); }
-        public void Y() { Console.WriteLine("FSM1: Action Y"); }
-        public void Z() { Console.WriteLine("FSM1: Action Z"); }
+        public static void W() { Console.WriteLine("FSM1: Action W"); }
+        public static void X() { Console.WriteLine("FSM1: Action X"); }
+        public static void Y() { Console.WriteLine("FSM1: Action Y"); }
+        public static void Z() { Console.WriteLine("FSM1: Action Z"); }
 
         //S2
-        private void J() { Console.WriteLine("FSM2: Action J, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
-        private void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
-        private void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
-        public void State() { Console.WriteLine("FSM2: State Change Only"); } //state change no Action
+        public static void J() { Console.WriteLine("FSM2: Action J, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        public static void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        public static void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        public static void State() { Console.WriteLine("FSM2: State Change Only"); } //state change no Action
         
-        public void running(string stuff) // method to run other methods based on a string input pulled from the FST
+        public static void running(string stuff) // method to run other methods based on a string input pulled from the FST
         {
             string s = stuff; // assign s to the incoming string
-            string[]
-                values = s.Split(
-                    ' '); // separate the string based on commas and store in an array of strings                                            
+            string[] values = s.Split(' '); // separate the string based on commas and store in an array of strings                                            
 
             if (stuff != "J K L")
             {
@@ -89,11 +86,8 @@ namespace Assignment_2
                     i < values.GetLength(0);
                     i++) // loops through based on how many elements in the string array                                                               
                 {
-                    MethodInfo
-                        run = this.GetType()
-                            .GetMethod(values[
-                                i]); //runs the associated methods using the inbuilt MethodInfo class                                                                          
-                    run.Invoke(this, null);
+                    MethodInfo run = typeof(FiniteStateMachine).GetMethod(values[i]); //runs the associated methods using the inbuilt MethodInfo class                                                                          
+                    run.Invoke(null ,null);
 
                     actionPerform += values[i] + " "; // appends the actions performed to be printed to the log
                 }
@@ -101,7 +95,12 @@ namespace Assignment_2
             else
             {
                 // multi-threading for the J K L methods
-                Parallel.Invoke(() => { J(); }, () => { K(); }, () => { L(); });
+                //Parallel.Invoke(() => { J(); }, () => { K(); }, () => { L(); });
+                Thread ThreadJ = new Thread(J);// Declare ThreadB with the method PrintB
+                Thread ThreadK = new Thread(K);
+                Thread ThreadL = new Thread(L);
+
+                ThreadJ.Start(); ThreadK.Start(); ThreadL.Start();
 
                 actionPerform2 = ", " + stuff; // appends the actions performed to be printed to the log       
             }
@@ -109,8 +108,8 @@ namespace Assignment_2
         
         public static void Main(string[] args) // entry point to program
         {
-            var fish = new FiniteStateTable(); // instantiate two classes and assign them to respective objects
-            var bear = new FiniteStateTable();
+            var fish = new FiniteStateTable(3,3); // instantiate two classes and assign them to respective objects
+            var bear = new FiniteStateTable(3,2);
 
             //Finite State Table for the first Finite State machine 
             //S0                        S1                   S2
@@ -193,12 +192,12 @@ namespace Assignment_2
 
                     if ((fish.getAction(x, currentState) != "")) // checks if the state change requested for FSM 1 is valid                                                                     
                     {
-                        fish.running(fish.getAction(x, currentState)); // runs the methods associated with the state change                                                                          
+                        running(fish.getAction(x, currentState)); // runs the methods associated with the state change                                                                          
                     }
 
                     if ((currentState == 1 || currentState2 == 0) && bear.getAction(x, currentState2) != "") // checks if the state change for FSM 2 is valid                        
                     {
-                        bear.running(bear.getAction(x, currentState2)); // runs the methods associated with the state change                                                                         
+                        running(bear.getAction(x, currentState2)); // runs the methods associated with the state change                                                                         
 
                         currentState2 = bear.getnextState(x, currentState2); // updates the current state with the new state                                                                              
                     }
@@ -208,10 +207,10 @@ namespace Assignment_2
                     Console.WriteLine("Finite State Machine 2 current state: " + currentState2 + "\n");
 
                     timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
-                    log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + fish.actionPerform + bear.actionPerform2 + "\n"; // appends the new concatenated information to the log 
+                    log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
                             
-                    fish.actionPerform = ""; // Reset variables
-                    bear.actionPerform2 = "";                        
+                    actionPerform = ""; // Reset variables
+                    actionPerform2 = "";                        
                 }
             }
 
