@@ -11,8 +11,7 @@ namespace Assignment_2
         public FiniteStateTable(int x, int y) // user initialised constructor initialising the Finite State table 
         {
             FST = new cell_FST[x, y]; // both finite state tables can be housed within a 3 x 3 2D array
-            Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!",
-                FST.GetLength(0), FST.GetLength(1));
+            Console.WriteLine("User has defined a Finite State Table of total size of {0} by {1}!", FST.GetLength(0), FST.GetLength(1));
         }
 
         public FiniteStateTable() // default constructor initialising the Finite State table 
@@ -32,27 +31,10 @@ namespace Assignment_2
 
         //Methods
         // methods to change and read the variables within a cell within the 2D array
-        public void setnextState(int d_state, int x, int y)
-        {
-            FST[x, y].nextState = d_state;
-        }
-
-        public void setAction(string d_action, int x, int y)
-        {
-            FST[x, y].action = d_action;
-        }
-
-        public int getnextState(int x, int y)
-        {
-            return FST[x, y].nextState;
-        }
-
-        public string getAction(int x, int y)
-        {
-            return FST[x, y].action;
-        }
-
-        
+        public void setnextState(int d_state, int x, int y) { FST[x, y].nextState = d_state; }
+        public void setAction(string d_action, int x, int y) { FST[x, y].action = d_action; }
+        public int getnextState(int x, int y) { return FST[x, y].nextState; }
+        public string getAction(int x, int y) { return FST[x, y].action; }
     }
 
     class FiniteStateMachine
@@ -62,34 +44,36 @@ namespace Assignment_2
         private static string actionPerform2 = "";
         
         //Methods
-        //methods for actions associated with state changes    
+        //methods for actions associated with state changes. Currently they only print a statement but under a real implementation
+        //it would be easy to put associated action calls inside these methods
         //S1
-        public static void W() { Console.WriteLine("FSM1: Action W"); }
+        public static void W() { Console.WriteLine("FSM1: Action W"); } 
         public static void X() { Console.WriteLine("FSM1: Action X"); }
         public static void Y() { Console.WriteLine("FSM1: Action Y"); }
         public static void Z() { Console.WriteLine("FSM1: Action Z"); }
 
         //S2
-        public static void J() { Console.WriteLine("FSM2: Action J, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
-        public static void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
-        public static void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        private static void J() { Console.WriteLine("FSM2: Action J, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        private static void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
+        private static void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
         public static void State() { Console.WriteLine("FSM2: State Change Only"); } //state change no Action
-        
-        public static void running(string stuff) // method to run other methods based on a string input pulled from the FST
+
+        private static void running(string stuff) // method to run other methods based on a string input pulled from the FST
         {
             string s = stuff; // assign s to the incoming string
             string[] values = s.Split(' '); // separate the string based on commas and store in an array of strings                                            
 
             if (stuff != "J K L")
             {
-                for (int i = 0;
-                    i < values.GetLength(0);
-                    i++) // loops through based on how many elements in the string array                                                               
+                for (int i = 0; i < values.GetLength(0); i++) // loops through based on how many elements in the string array                                                               
                 {
                     MethodInfo run = typeof(FiniteStateMachine).GetMethod(values[i]); //runs the associated methods using the inbuilt MethodInfo class                                                                          
                     run.Invoke(run ,null);
 
-                    actionPerform += values[i] + " "; // appends the actions performed to be printed to the log
+                    if (stuff != "State") // represents state change SA->SB on FSM 2
+                    { 
+                        actionPerform += values[i] + " "; // appends the actions performed to be printed to the log
+                    }
                 }
             }
             else
@@ -101,7 +85,6 @@ namespace Assignment_2
                 Thread ThreadL = new Thread(L);
 
                 ThreadJ.Start(); ThreadK.Start(); ThreadL.Start();
-
                 actionPerform2 = stuff; // appends the actions performed to be printed to the log       
             }
         }
@@ -162,7 +145,7 @@ namespace Assignment_2
             ConsoleKey keyIn = ConsoleKey.Delete; 
 
             Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints the initial state of both FSMs                                                                                            
-            Console.WriteLine("Finite State Machine 2 current state: " + currentState2 + "\n");                               
+            Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                               
 
             string log = "TimeStamp \t\t Event \t\t Action \n"; // initialise log file with correct spacing and headers
 
@@ -170,6 +153,7 @@ namespace Assignment_2
             while (keyIn != ConsoleKey.Q) // constantly checking for a 'q' exit button being pressed
             {
                 keyIn = Console.ReadKey(true).Key; // reads the user input from the console
+                Console.WriteLine("\n");
 
                 switch (keyIn) // assigns a value based on the user input 
                 {
@@ -204,35 +188,32 @@ namespace Assignment_2
                     currentState = fish.getnextState(x, currentState); // updates the current state with the new state                                                                         
                     
                     Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
-                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2 + "\n");
-
+                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2);
+                    
                     timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
                     log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
                             
                     actionPerform = ""; // Reset variables
-                    actionPerform2 = "";                        
+                    actionPerform2 = "";
                 }
             }
 
-            // Creating File - V3
+            //Creating File - V3
             string filename = "";
             string currentDirectory = "";
             string strPath = "";
             string[] error;
 
+            //Checks that the user inout is a fully qualified file name
             do {
                 Console.WriteLine("Please Enter Fully-Qualified Filename: ");
-
                 strPath = Console.ReadLine(); // stores the user input
-                    
                 filename = Path.GetFileName(strPath); //pulls out name to check
                 currentDirectory = Path.GetDirectoryName(strPath); //pulls out directory to check
-                    
                 error = filename.Split('.');  //checks to see if the file is a text file                
- 
             } while ((Directory.Exists(currentDirectory) != true) || (filename.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) || (error[(error.GetLength(0) - 1)] != "txt"));               
                 
-            System.IO.File.AppendAllText(strPath, (log) + "\n"); // outputs the correct file
+            File.AppendAllText(strPath, (log) + "\n"); // outputs the correct file
         }
     }
 }
