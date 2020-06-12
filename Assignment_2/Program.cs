@@ -152,7 +152,8 @@ namespace Assignment_2
             //Running Machine
             while (keyIn != ConsoleKey.Q) // constantly checking for a 'q' exit button being pressed
             {
-                keyIn = Console.ReadKey(true).Key; // reads the user input from the console
+                Console.WriteLine("\n"); 
+                keyIn = Console.ReadKey(false).Key; // reads the user input from the console   
                 Console.WriteLine("\n");
 
                 switch (keyIn) // assigns a value based on the user input 
@@ -168,6 +169,7 @@ namespace Assignment_2
                         break;
                     default:
                         x = -1;
+                        actionPerform = "Invalid Input";
                         break;
                 }
 
@@ -188,14 +190,15 @@ namespace Assignment_2
                     currentState = fish.getnextState(x, currentState); // updates the current state with the new state                                                                         
                     
                     Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
-                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2);
+                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                    
                     
-                    timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
-                    log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
-                            
-                    actionPerform = ""; // Reset variables
-                    actionPerform2 = "";
                 }
+
+                timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
+                log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
+
+                actionPerform = ""; // Reset variables
+                actionPerform2 = "";
             }
 
             //Creating File - V3
