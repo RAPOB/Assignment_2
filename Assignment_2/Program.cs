@@ -57,7 +57,7 @@ namespace Assignment_2
         private static void K() { Console.WriteLine("FSM2: Action K, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
         private static void L() { Console.WriteLine("FSM2: Action L, " + "Thread Number: " + Thread.CurrentThread.ManagedThreadId); }
         public static void State() { Console.WriteLine("FSM2: State Change Only"); } //state change no Action
-
+        
         private static void running(string stuff) // method to run other methods based on a string input pulled from the FST
         {
             string s = stuff; // assign s to the incoming string
@@ -78,13 +78,14 @@ namespace Assignment_2
             }
             else
             {
-                // multi-threading for the J K L methods
-                //Parallel.Invoke(() => { J(); }, () => { K(); }, () => { L(); });
+                // multi-threading for the J K L methods                
                 Thread ThreadJ = new Thread(J);// Declare ThreadB with the method PrintB
                 Thread ThreadK = new Thread(K);
                 Thread ThreadL = new Thread(L);
 
-                ThreadJ.Start(); ThreadK.Start(); ThreadL.Start();
+                ThreadJ.Start(); ThreadK.Start(); ThreadL.Start(); //begins concurrent multi-threading
+                ThreadJ.Join(); ThreadK.Join(); ThreadL.Join(); //Waits so all tasks finishes at the same time
+
                 actionPerform2 = stuff; // appends the actions performed to be printed to the log       
             }
         }
