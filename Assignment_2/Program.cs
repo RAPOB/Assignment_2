@@ -154,7 +154,7 @@ namespace Assignment_2
             while (keyIn != ConsoleKey.Q) // constantly checking for a 'q' exit button being pressed
             {
                 Console.WriteLine("\n"); 
-                keyIn = Console.ReadKey(false).Key; // reads the user input from the console   
+                keyIn = Console.ReadKey(false).Key; // reads the user input from the console
                 Console.WriteLine("\n");
 
                 switch (keyIn) // assigns a value based on the user input 
@@ -167,6 +167,11 @@ namespace Assignment_2
                         break;
                     case ConsoleKey.C:
                         x = 2;
+                        break;
+
+                    case ConsoleKey.Q: 
+                        x = -1;
+                        actionPerform = "User Quit";
                         break;
                     default:
                         x = -1;
@@ -191,15 +196,14 @@ namespace Assignment_2
                     currentState = fsm1.getnextState(x, currentState); // updates the current state with the new state                                                                         
                     
                     Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
-                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                    
-                    
+                    Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                              
                 }
 
                 timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
                 log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
 
                 actionPerform = ""; // Reset variables
-                actionPerform2 = "";
+                actionPerform2 = "";                
             }
 
             //Creating File - V3
@@ -210,7 +214,7 @@ namespace Assignment_2
 
             //Checks that the user inout is a fully qualified file name
             do {
-                Console.WriteLine("Please Enter Fully-Qualified Filename: ");
+                Console.WriteLine("\n\n" + "Please Enter Fully-Qualified Filename: ");
                 strPath = Console.ReadLine(); // stores the user input
                 filename = Path.GetFileName(strPath); //pulls out name to check
                 currentDirectory = Path.GetDirectoryName(strPath); //pulls out directory to check
