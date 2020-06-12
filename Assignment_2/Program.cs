@@ -146,9 +146,9 @@ namespace Assignment_2
             ConsoleKey keyIn = ConsoleKey.Delete; 
 
             Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints the initial state of both FSMs                                                                                            
-            Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                               
+            Console.WriteLine("Finite State Machine 2 current state: " + currentState2);
 
-            string log = "TimeStamp \t\t Event \t\t Action \n"; // initialise log file with correct spacing and headers
+            string log = "TimeStamp \t\t Event \t  State FSM1 \t State FSM2 \t Action \n"; // initialise log file with correct spacing and headers
 
             //Running Machine
             while (keyIn != ConsoleKey.Q) // constantly checking for a 'q' exit button being pressed
@@ -200,7 +200,8 @@ namespace Assignment_2
                 }
 
                 timestamp = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); // updates the timestamp with user interactions                                                                                     
-                log += timestamp + "\t" + " " + keyIn + "\t\t" + " " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log 
+                log += timestamp + "\t" + " " + keyIn + "\t" + "  " + currentState + "\t\t " 
+                           + currentState2 + "\t\t " + actionPerform + actionPerform2 + "\n"; // appends the new concatenated information to the log
 
                 actionPerform = ""; // Reset variables
                 actionPerform2 = "";                
