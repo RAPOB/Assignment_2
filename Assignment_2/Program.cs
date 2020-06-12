@@ -92,50 +92,50 @@ namespace Assignment_2
         
         public static void Main(string[] args) // entry point to program
         {
-            var fish = new FiniteStateTable(3,3); // instantiate two classes and assign them to respective objects
-            var bear = new FiniteStateTable(3,2);
+            var fsm1 = new FiniteStateTable(3,3); // instantiate two classes and assign them to respective objects
+            var fsm2 = new FiniteStateTable(3,2);
 
             //Finite State Table for the first Finite State machine 
             //S0                        S1                   S2
             //S1 -> ActionX/Y           S0 -> ActionW        S0 -> ActionW     //a
             //S0 -> do_nothing          S2 -> ActionX/Z      S2 -> do_nothing  //b
             //S0 -> do_nothing          S1 -> do_nothing     S1 -> ActionX/Y   //c 
-            fish.setAction("X Y", 0, 0); // STATE 0 Transition to state 1
-            fish.setnextState(1, 0, 0);
-            fish.setAction("W", 0, 1); // STATE 1 Transition to state 0
-            fish.setnextState(0, 0, 1);
-            fish.setAction("W", 0, 2); // STATE 2 Transition to state 0
-            fish.setnextState(0, 0, 2);
-            fish.setAction("", 1, 0); // STATE 0 Transition to state 0
-            fish.setnextState(0, 1, 0);
-            fish.setAction("X Z", 1, 1); // STATE 1 Transition to state 2
-            fish.setnextState(2, 1, 1);
-            fish.setAction("", 1, 2); // STATE 2 Transition to state 2
-            fish.setnextState(2, 1, 2);
-            fish.setAction("", 2, 0); // STATE 0 Transition to state 0
-            fish.setnextState(0, 2, 0);
-            fish.setAction("", 2, 1); // STATE 1 Transition to state 1
-            fish.setnextState(1, 2, 1);
-            fish.setAction("X Y", 2, 2); // STATE 2 Transition to state 1
-            fish.setnextState(1, 2, 2);
+            fsm1.setAction("X Y", 0, 0); // STATE 0 Transition to state 1
+            fsm1.setnextState(1, 0, 0);
+            fsm1.setAction("W", 0, 1); // STATE 1 Transition to state 0
+            fsm1.setnextState(0, 0, 1);
+            fsm1.setAction("W", 0, 2); // STATE 2 Transition to state 0
+            fsm1.setnextState(0, 0, 2);
+            fsm1.setAction("", 1, 0); // STATE 0 Transition to state 0
+            fsm1.setnextState(0, 1, 0);
+            fsm1.setAction("X Z", 1, 1); // STATE 1 Transition to state 2
+            fsm1.setnextState(2, 1, 1);
+            fsm1.setAction("", 1, 2); // STATE 2 Transition to state 2
+            fsm1.setnextState(2, 1, 2);
+            fsm1.setAction("", 2, 0); // STATE 0 Transition to state 0
+            fsm1.setnextState(0, 2, 0);
+            fsm1.setAction("", 2, 1); // STATE 1 Transition to state 1
+            fsm1.setnextState(1, 2, 1);
+            fsm1.setAction("X Y", 2, 2); // STATE 2 Transition to state 1
+            fsm1.setnextState(1, 2, 2);
 
             //Finite State Table for the second Finite State machine 
             //SA (0)                    SB (1) && S1                   
             //SB -> do_nothing          SA -> Action J/K/L   //a
             //SA -> do_nothing          SA -> Action J/K/L   //b
             //SA -> do_nothing          SA -> Action J/K/L   //c 
-            bear.setAction("State", 0, 0); // STATE A Transition to state B
-            bear.setnextState(1, 0, 0);
-            bear.setAction("J K L", 0, 1); // STATE B Transition to state A
-            bear.setnextState(0, 0, 1);
-            bear.setAction("", 1, 0); // STATE A Transition to state A
-            bear.setnextState(1, 1, 0);
-            bear.setAction("J K L", 1, 1); // STATE B Transition to state A
-            bear.setnextState(0, 1, 1);
-            bear.setAction("", 2, 0); // STATE A Transition to state A
-            bear.setnextState(1, 2, 0);
-            bear.setAction("J K L", 2, 1); // STATE B Transition to state A
-            bear.setnextState(0, 2, 1);
+            fsm2.setAction("State", 0, 0); // STATE A Transition to state B
+            fsm2.setnextState(1, 0, 0);
+            fsm2.setAction("J K L", 0, 1); // STATE B Transition to state A
+            fsm2.setnextState(0, 0, 1);
+            fsm2.setAction("", 1, 0); // STATE A Transition to state A
+            fsm2.setnextState(1, 1, 0);
+            fsm2.setAction("J K L", 1, 1); // STATE B Transition to state A
+            fsm2.setnextState(0, 1, 1);
+            fsm2.setAction("", 2, 0); // STATE A Transition to state A
+            fsm2.setnextState(1, 2, 0);
+            fsm2.setAction("J K L", 2, 1); // STATE B Transition to state A
+            fsm2.setnextState(0, 2, 1);
 
             //Variables                                           
             var timestamp = "";    // timestamps user actions for the log output
@@ -177,18 +177,18 @@ namespace Assignment_2
                 if (x != -1) // checks the validity of the key press (a, b, c keys only)
                 {
 
-                    if ((fish.getAction(x, currentState) != "")) // checks if the state change requested for FSM 1 is valid                                                                     
+                    if ((fsm1.getAction(x, currentState) != "")) // checks if the state change requested for FSM 1 is valid                                                                     
                     {
-                        running(fish.getAction(x, currentState)); // runs the methods associated with the state change                                                                          
+                        running(fsm1.getAction(x, currentState)); // runs the methods associated with the state change                                                                          
                     }
 
-                    if ((currentState == 1 || currentState2 == 0) && bear.getAction(x, currentState2) != "") // checks if the state change for FSM 2 is valid                        
+                    if ((currentState == 1 || currentState2 == 0) && fsm2.getAction(x, currentState2) != "") // checks if the state change for FSM 2 is valid                        
                     {
-                        running(bear.getAction(x, currentState2)); // runs the methods associated with the state change                                                                         
+                        running(fsm2.getAction(x, currentState2)); // runs the methods associated with the state change                                                                         
 
-                        currentState2 = bear.getnextState(x, currentState2); // updates the current state with the new state                                                                              
+                        currentState2 = fsm2.getnextState(x, currentState2); // updates the current state with the new state                                                                              
                     }
-                    currentState = fish.getnextState(x, currentState); // updates the current state with the new state                                                                         
+                    currentState = fsm1.getnextState(x, currentState); // updates the current state with the new state                                                                         
                     
                     Console.WriteLine("Finite State Machine 1 current state: " + currentState); // prints to console the (new) current states
                     Console.WriteLine("Finite State Machine 2 current state: " + currentState2);                    
